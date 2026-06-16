@@ -1,27 +1,129 @@
-<html><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Bio</title>
 
-<link rel="icon" type="image/ico" src="images/favicon.ico">
-<title>hashcat</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0c0c0c;
+    color: #33ff33;
+    font-family: "Courier New", monospace;
+    padding: 20px;
+}
+
+#terminal {
+    max-width: 900px;
+    margin: auto;
+}
+
+.output {
+    white-space: pre-wrap;
+    margin-bottom: 8px;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+}
+
+.prompt {
+    margin-right: 8px;
+}
+
+input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #33ff33;
+    font-family: inherit;
+    font-size: 1rem;
+    flex: 1;
+}
+</style>
 </head>
+<body>
 
-<body bgcolor="#000000" text="#D7D7D7" link="#BBBBBB" vlink="#9F9F9F">
-<table width="99%" border="0" cellpadding="1" height="430" align="center">
-  <tbody><tr>
-    <td height="432"> 
-      <center>
-        <p><img src="images/splash.png" width="468" height="260" id="markbode"></p>
-        <p><font face="verdana" size="1"></font></p>
-      </center>
-    </td>
-  </tr>
-</tbody></table>
-<div align="center"> 
-  <p><font face="verdana" size="1"><a style="text-decoration:none" 
-  href="mailto: admin@evil.asia">mail </a>|<a style="text-decoration:none" 
-href="https://instagram.com/bosslair"> instagram </a>| <a style="text-decoration:none" href="https://discord.gg/noon">discord</a></font></p>
-  <p><font face="verdana" size="1">copyright © <b>evil.asia</b> all rights reserved<br></font></p>
-</div>
-<div style="padding-top: 25px" align="center">
+<div id="terminal">
+    <div id="output" class="output">
+Welcome to my terminal bio site.
+
+Type "help" to see available commands.
+    </div>
+
+    <div class="input-line">
+        <span class="prompt">visitor@site:~$</span>
+        <input type="text" id="commandInput" autofocus />
+    </div>
 </div>
 
-</body></html>
+<script>
+const output = document.getElementById("output");
+const input = document.getElementById("commandInput");
+
+const commands = {
+    help: `
+Available commands:
+
+help      - Show this menu
+about     - About me
+projects  - View projects
+contact   - Contact information
+clear     - Clear terminal
+`,
+
+    about: `
+Hi, I'm Your Name.
+
+I'm a developer who enjoys building web apps,
+automation tools, and experimenting with new tech.
+`,
+
+    projects: `
+Projects:
+
+• Portfolio Website
+• Discord Bot
+• Open Source Contributions
+`,
+
+    contact: `
+Email: you@example.com
+GitHub: github.com/yourusername
+Twitter: @yourhandle
+`
+};
+
+function print(text) {
+    output.innerHTML += "\n\n" + text;
+    window.scrollTo(0, document.body.scrollHeight);
+}
+
+input.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+
+    const cmd = input.value.trim().toLowerCase();
+
+    print(`visitor@site:~$ ${cmd}`);
+
+    if (cmd === "clear") {
+        output.innerHTML = "";
+    } else if (commands[cmd]) {
+        print(commands[cmd]);
+    } else if (cmd !== "") {
+        print(`Command not found: ${cmd}\nType "help" for available commands.`);
+    }
+
+    input.value = "";
+});
+</script>
+
+</body>
+</html>
